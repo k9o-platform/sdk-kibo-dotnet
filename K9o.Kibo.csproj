@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>K9o.Kibo</RootNamespace>
+    <AssemblyName>K9o.Kibo</AssemblyName>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <PackageId>K9o.Kibo</PackageId>
+    <Version>1.5.0</Version>
+    <Title>k9o-kibo — Zero-Knowledge BYOK/HYOK vault SDK</Title>
+    <Description>Kibo Zero-Knowledge BYOK/HYOK vault SDK for .NET — client-side encrypt/decrypt against your own KMS over the audited Rust core (kibo-kms-rest-ffi) via the uniffi-bindgen-cs binding. The platform never sees plaintext. K9o.Kibo.Kibo.Encrypt/Decrypt; throws K9o.KError.</Description>
+    <Authors>Kilimanjaro</Authors>
+    <Company>Kilimanjaro</Company>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://kilimanjaro.dev</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/k9o-platform</RepositoryUrl>
+    <PackageTags>kilimanjaro;k9o;kibo;byok;hyok;encryption</PackageTags>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- KError lives in the core SDK; the ZK surface maps the bound-core error
+         onto it (consistent with the Python/Ruby/Java server SDKs). -->
+    <ProjectReference Include="../dotnet/K9o.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="tests/**" />
+  </ItemGroup>
+
+  <!--
+    The native library (gitignored; injected by the build from the Kibo core bundle) is packed under
+    runtimes/<rid>/native/ so the NuGet consumer gets the platform library. The generated binding
+    (src/kibo_kms_rest_ffi.cs) and uniffi.toml are committed.
+  -->
+  <ItemGroup>
+    <None Include="runtimes/**/native/*" Pack="true" PackagePath="runtimes" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
