@@ -1,0 +1,4 @@
+# uniffi-bindgen-cs config (committed; used by CI generation). Public access so
+# consumers can construct EncryptInput/DecryptInput + catch ZkFfiUniffiException.
+[bindings.csharp]
+access_modifier = "public"

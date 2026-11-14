@@ -1,0 +1,8 @@
+bin/
+obj/
+# Native library: injected per platform from the Kibo core bundle (gitignored).
+# The generated binding (src/kibo_kms_rest_ffi.cs) and uniffi.toml are committed.
+runtimes/
+*.dylib
+*.so
+*.dll
